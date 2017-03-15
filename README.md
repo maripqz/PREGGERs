@@ -20,12 +20,17 @@ Most of the work on this project will be related to web scraping online resource
 Pregnancy websites: Baby Center, Kellymom, What to Expect, The Bump, Parenting.com and Babble.
 Nutrition-specific keywords: nutrition, food, eat, meal, formula, nutrients, vitamins, supplements, diet, health, wellness,
 
-Nutrition websites: no meat athlete, Ordinary vegan, Sackler institute for nutrition science,
+Nutrition websites: Authority Nutrition, Eat Right, Weight and Wellness, Food Insight, http://www.foodandnutrition.org/,  
 Pregnancy-specific keywords: pregnant, baby, breast-feeding, birth, ovulation, postpartum, placenta, trimester,
+
+Psuedoscience websites:
+http://www.drperlmutter.com/
+http://foodbabe.com/
+
 
 ## Modeling
 Resource Repository
-The resources will undergo natural language processing. They will be evaluated using TF-IDF Vectorizing and KMeans clustering to group documents into specific categories. I will also sort them into categories of length and unique word counts (as a stand-in for complexity). 
+The resources will undergo natural language processing. They will be evaluated using TF-IDF Vectorizing and KMeans clustering to group documents into specific categories. I will also sort them into categories of length and unique word counts (as a stand-in for complexity).
 
 ## Evaluation
 We will ask several mothers that we know to take the quiz and rate the quality of resources the recommender provides.
