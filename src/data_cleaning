@@ -1,0 +1,39 @@
+from nltk.tokenize import word_tokenize
+from nltk.stem.snowball import SnowballStemmer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.corpus import stopwords
+
+tokenized = [word_tokenize(content.lower()) for content in documents]
+snowball = SnowballStemmer('english')
+
+def tokenize(text_column):
+    text_list = list(text_column)
+    #convert all lines to strings (some were floats (?)
+    string_list = []
+    for item in text_list:
+        string_list.append(str(item))
+
+    # decode unicode into ascii
+    content_clean = []
+    for item in string_list:
+        content_clean.append(item.decode('utf-8').encode('ascii','ignore').replace('\n', ''))
+    tokenized_list = [word_tokenize(content.lower()) for content in content_clean]
+    return tokenized_list
+
+def remove_stopwords(tokenized_list, stopword_list):
+    stop = set(stopwords.words('english'))
+    stop.update(stopword_list)
+    documents = [[word for word in words if word not in stop]
+        for words in tokenized_list]
+    return documents
+
+def stem(documents, stemmer ='snowball' ):
+    stemmed_rows = []
+    if stemmer=='snowball':
+        for line in documents:
+            stemmed = [snowball.stem(word) for word in line]
+            stemmed_rows.append(stemmed)
+    content_stemmed = []
+    for row in stemmed_rows:
+        content_stemmed.append(' '.join(row))
+    return content_stemmed
