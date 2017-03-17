@@ -11,7 +11,6 @@ This resource recommender asks a few short questions of new mothers and sorts th
 
 There will be three inputs to this project:
 1. A collection of documents and resources from popular parenting resource websites.
-2. A network of experts with different areas of expertise and demographic backgrounds.
 3. A short quiz asking users to answer some basic questions on their experience.
 
 ## Data Preparation
@@ -24,8 +23,10 @@ Nutrition websites: Authority Nutrition, Eat Right, Weight and Wellness, Food In
 Pregnancy-specific keywords: pregnant, baby, breast-feeding, birth, ovulation, postpartum, placenta, trimester,
 
 Psuedoscience websites:
-http://www.drperlmutter.com/
-http://foodbabe.com/
+Dr Perl Mutter, FoodBabe, beachbody, Bodybuilding
+https://www.infowars.com/search-page/?nutrition
+http://search.mercola.com/results.aspx?q=pregnant
+http://naturalnews.com/
 
 
 ## Modeling
@@ -34,8 +35,7 @@ The resources will undergo natural language processing. They will be evaluated u
 
 ## Evaluation
 We will ask several mothers that we know to take the quiz and rate the quality of resources the recommender provides.
-Expert Network
-The network does not currently exist, so we will create a few false expert profiles as a MVP and to stand in for future experts. They will fit specific archetypes like, “Southern African American Vegan,” “stay-at-home-dad,” and “at-risk for pre-eclampsia.” The more specific, the better.
+
 
 ## Deployment
-Eventually the recommender will live on the nonprofit’s website. As this does not currently exist, it will have a standalone website with links out to all of the supporting resources.
+Eventually the recommender will live on a nonprofit’s website. As this does not currently exist, it will have a standalone website with links out to all of the supporting resources.
