@@ -21,14 +21,15 @@ Baby Center, Kellymom, What to Expect, The Bump, Parenting.com and Babble.
 Nutrition-specific keywords: nutrition, food, eat, meal, formula, nutrients, vitamins, supplements, diet, health, wellness,
 
 ### Nutrition websites:
-Authority Nutrition, Eat Right, Weight and Wellness, Food Insight, http://www.foodandnutrition.org/,  
+Authority Nutrition, Eat Right, Weight and Wellness, Food Insight, Food and Nutrition,  
 Pregnancy-specific keywords: pregnant, baby, breast-feeding, birth, ovulation, postpartum, placenta, trimester,
+http://www.mayoclinic.org/search/search-results?q=pregnant%20nutrition
 
 ### Psuedoscience websites:
-Dr Perl Mutter, FoodBabe, beachbody, Bodybuilding
+Dr Perl Mutter, FoodBabe, beachbody, Bodybuilding, Weston A Price, Mercola
 https://www.infowars.com/search-page/?nutrition
-http://search.mercola.com/results.aspx?q=pregnant
 http://naturalnews.com/
+
 
 
 ## Modeling
@@ -36,7 +37,7 @@ http://naturalnews.com/
 The resources will undergo natural language processing. They will be evaluated using TF-IDF Vectorizing and KMeans clustering to group documents into specific categories. I will also sort them into categories of length and unique word counts (as a stand-in for complexity).
 
 ### Pseudoscience Filtering
-Using my psuedoscience and evidence-based science documents as training data, I will run Naive Bayes to determine the likelihood that new articles are likley to be evidence-based or full of false claims. 
+Using my psuedoscience and evidence-based science documents as training data, I will run Naive Bayes to determine the likelihood that new articles are likley to be evidence-based or full of false claims.
 
 ## Evaluation
 We will ask several mothers that we know to take the quiz and rate the quality of resources the recommender provides.

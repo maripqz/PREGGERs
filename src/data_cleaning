@@ -1,26 +1,93 @@
+import pandas as pd
 from nltk.tokenize import word_tokenize
 from nltk.stem.snowball import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.corpus import stopwords
 snowball = SnowballStemmer('english')
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import confusion_matrix
+from collections import Counter
+import string
+from nltk.tag import pos_tag
+from nltk.corpus import stopwords
 
 tokenized = [word_tokenize(content.lower()) for content in documents]
 snowball = SnowballStemmer('english')
 
+## Clean in csv files of all data
 def clean_csv(filename):
-    new_df_name = pd.read_csv(filename).drop_duplicates().dropna(subset=[2])
-    new_df_name = new_df_name.rename(index=str, columns={"0": "title", "1": "link", '2': 'content'})
-    new_df_name = new_df_name.drop('Unnamed: 0', axis=1)
-    return new_df_name
+    new_df = pd.read_csv(filename)
+    clean_df = new_df.drop_duplicates()
+    clean_df = clean_df.dropna(subset=['2'])
+    clean_df = clean_df.rename(index=str, columns={"0": "title", "1": "link", '2': 'content'})
+    clean_df = clean_df.drop('Unnamed: 0', axis=1)
+    return clean_df
+
+## Import files using clean function,  add labels to signify psuedoscience
+## combine two dataframes into one
+
+false = clean_csv('data/false_corpus.csv')
+false['label'] = 0
+true = clean_csv('data/corpus.csv')
+true['label'] = 1
+content = [false, true]
+all_content = pd.concat(content)
 
 
+## Functions to use in featurizing text and title columns
+
+def find_exclamations(title):
+    title = str(title).strip()
+    return sum([1 for letter in title if letter == '!'])/float(len(title))
+
+def unique_word_pct(string):
+    unique_words = set()
+    for word in string.split():
+        unique_words.add(word)
+    return float(len(unique_words))/float(len(string.split()))
+
+def word_counter(content):
+    words = Counter()
+    for word in content.split():
+        words[word] += 1
+    return words
+
+def find_sources(content):
+    short_content = content[-(len(content)/4):].lower()
+    replace_punctuation = string.maketrans(string.punctuation, ' '*len(string.punctuation))
+    content_clean = short_content.translate(replace_punctuation)
+    word_dict = word_counter(content_clean)
+    word_set = set([key for key in word_dict])
+    source_words = set(['source', 'sources', 'citation', 'citations', 'reference', 'references'])
+    return int(any(word in word_set for word in source_words))
+
+def find_credentials(content):
+    word_dict = word_counter(content)
+    word_set = set([key for key in word_dict])
+    source_words = set(['MD', 'PhD', 'MPH', "RD", "M.D.", "R.D.", "M.P.H.", 'Ph.D.', 'DPhil'])
+    return int(any(word in word_set for word in source_words))
+
+def word_length(content):
+    words = content.split()
+    return sum([len(word) for word in words])/float(len(words))
+
+
+def pos_tag_finder(content):
+    content_clean = str(content).decode('utf-8').encode('ascii','ignore').replace('\n', '')
+    tokens = word_tokenize(content_clean)
+    tags = pos_tag(tokens)
+    counts = Counter(tag for word,tag in tags)
+    total = sum(counts.values())
+    return dict((word, float(count)/total) for word,count in counts.items())
+
+#Functions to clean text and then use Naive-Bayes on the text column
 def tokenize(text_column):
     text_list = list(text_column)
     #convert all lines to strings (some were floats (?)
     string_list = []
     for item in text_list:
         string_list.append(str(item))
-
     # decode unicode into ascii
     content_clean = []
     for item in string_list:
@@ -28,20 +95,58 @@ def tokenize(text_column):
     tokenized_list = [word_tokenize(content.lower()) for content in content_clean]
     return tokenized_list
 
-def remove_stopwords(tokenized_list, stopword_list):
-    stop = set(stopwords.words('english'))
-    stop.update(stopword_list)
-    documents = [[word for word in words if word not in stop]
-        for words in tokenized_list]
-    return documents
-
-def stem(documents, stemmer ='snowball' ):
-    stemmed_rows = []
+def stem(content, stemmer ='snowball' ):
+    content_clean = content.decode('utf-8', errors='ignore').encode('ascii',errors='ignore').replace('\n', ' ')
     if stemmer=='snowball':
-        for line in documents:
-            stemmed = [snowball.stem(word) for word in line]
-            stemmed_rows.append(stemmed)
-    content_stemmed = []
-    for row in stemmed_rows:
-        content_stemmed.append(' '.join(row))
-    return content_stemmed
+        stemmed = [snowball.stem(word) for word in content_clean.split(' ')]
+    return ' '.join(stemmed)
+
+## update stopwords for TF-IDF Vectorizing
+stop = set(stopwords.words('english'))
+html_stopwords = ["span", 'vm', 'hook', 'class', 'strong', 'href', 'style', 'rgb',
+                  'transpar', '153', 'br', 'strong', 'span', 'com', 'vm', 'img', 'http', 'zzzzzzzzzzzz']
+stop.update(html_stopwords)
+
+## Pandas functions to add columns from above functions
+all_content['credentials'] = all_content['content'].apply(find_credentials)
+all_content['unique_words'] = all_content['content'].apply(unique_word_pct)
+all_content['content_length'] = all_content['content'].apply(len)
+all_content['sources'] = all_content['content'].apply(find_sources)
+all_content['avg_word_length'] = all_content['content'].apply(word_length)
+all_content['uppercase_title'] = all_content['title'].apply(title_capitals)
+all_content['exclamations_title'] = all_content['title'].apply(find_exclamations)
+all_content['exclamations_content'] = all_content['content'].apply(find_exclamations)
+all_content['stemmed_content'] = all_content['content'].apply(stem)
+
+
+
+## Adding the Parts of Speech percentages to all_content dataframe
+POS_list = ['PRP$', 'VBG', 'VBD', 'VBN', 'VBP', 'WDT', 'JJ', 'WP', 'VBZ', 'DT',
+            '#', 'RP', '$', 'NN', ')', '(', ',', '.', 'TO', 'PRP', 'RB', ':',
+            'NNS', 'NNP', 'VB', 'WRB', 'CC', 'PDT', 'RBS', 'RBR', 'CD', 'EX',
+            'IN', 'WP$', 'MD', 'NNPS', 'JJS', 'JJR', 'UH', 'FW', 'LS', 'POS']
+PoS_tag_list = []
+for row in all_content['content']:
+    PoS_tag_list.append(pos_tag_finder(row))
+PoS_df = pd.DataFrame(PoS_tag_list)
+PoS_df = PoS_df.reset_index()
+
+all_content = all_content.reset_index()
+pos_content = all_content.join(PoS_df, lsuffix='_all_content', rsuffix='_PoS_df')
+pos_content = pos_content.drop(['index_all_content', 'level_0'], axis=1)
+pos_content = pos_content.fillna(0)
+labels = pos_content.pop('label')
+
+
+## TF-IDF Vectorization and Naive Bayes Model fitting
+vector = TfidfVectorizer(stop_words=stop)
+train_matrix = vector.fit_transform(X_train['stemmed_content'])
+bayes_model = MultinomialNB()
+bayes_model.fit(train_matrix, y_train)
+test_matrix = vector.transform(X_test['stemmed_content'])
+
+#predicting log probabilities of pseudoscience and adding them back to X_train and X_test
+X_train_predictproba = bayes_model.predict_proba(train_matrix)
+X_test_predictlogprobab = bayes_model.predict_log_proba(test_matrix)
+X_train['predict_proba'] = X_train_predictproba[:,1]
+X_test['predict_proba'] = X_test_predictlogprobab[:,1]
