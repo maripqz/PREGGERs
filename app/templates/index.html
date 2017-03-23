@@ -41,7 +41,7 @@
                     Menu <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i> <span class="light">Start</span> Bootstrap
+                    <i class="fa fa-play-circle"></i> <span class="light">Page</span> Top
                 </a>
             </div>
 
@@ -57,6 +57,9 @@
                     </li>
                     <li>
                         <a class="page-scroll" href="#download">Download</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#fact">Fact Finder</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
@@ -94,21 +97,70 @@
                 <p>Search for answers specific to your needs, or separate science from pseudoscience</p>
                 <p>Choose your interface below!</p>
                 <p></p>
-                <a href="/new-user" class="page-scroll btn btn-default btn-xl sr-button" data-sr-id="6" style="; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all 0.35s ease 0s, -webkit-transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; transition: all 0.35s ease 0s, transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; ">Help me find sound advice</a>
-                <a href="#recommendations" class="page-scroll btn btn-default btn-xl sr-button" data-sr-id="7" style="; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all 0.35s ease 0s, -webkit-transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; transition: all 0.35s ease 0s, transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; ">Go to the Fact/Fiction Finder!</a>
+                <a href="#articles" class="page-scroll btn btn-default btn-xl sr-button" data-sr-id="6" style="; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all 0.35s ease 0s, -webkit-transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; transition: all 0.35s ease 0s, transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; ">Help me find sound advice</a>
+                <a href="#fact" class="page-scroll btn btn-default btn-xl sr-button" data-sr-id="7" style="; visibility: visible;  -webkit-transform: translateY(0) scale(1); opacity: 1;transform: translateY(0) scale(1); opacity: 1;-webkit-transition: all 0.35s ease 0s, -webkit-transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; transition: all 0.35s ease 0s, transform 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s, opacity 1s cubic-bezier(0.6, 0.2, 0.1, 1) 0.2s; ">Go to the Fact/Fiction Finder!</a>
             </div>
         </div>
     </section>
 
-    <!-- Download Section -->
-    <section id="download" class="content-section text-center">
-        <div class="download-section">
+    <!-- Articles Section -->
+    <section id="articles" class="content-section text-center">
+        <div class="articles-section">
             <div class="container">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <h2>Download Grayscale</h2>
-                    <p>You can download Grayscale for free on the preview page at Start Bootstrap.</p>
-                    <a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Visit Download Page</a>
+                    <h2>Find Nutrition Advice</h2>
+                    <table border="0" width="100%" ID="Table2" style="margin: 0px;">
+                    <tr>
+                      <td><img src="../static/img/kmeans.png" alt="temporary kmeans image"</td>
+                      <td>
+                        <h2>Feature Questions</h2>
+                            <form action="/action_page.php">
+                            <p>1. What stage of pregnancy are you in?<br>
+                              <select id="stage" class="dropdown">
+                                <option value="1">1st Trimester</option>
+                                <option value="2">2nd Trimester</option>
+                                <option value="3">3rd Trimester</option>
+                                <option value="1st_week_postpartum">1st week postpartum</option>
+                                <option value="3_mo_postpartum">1-3 months postpartum</option>
+                                <option value="9_mo_postpartum">3-9 months postpartum</option>
+                              </select>
+                        		<p>2. I'm looking for information on the following feeding options for my child:<br>
+                              <input type="checkbox" class="checkbox" id="breastfeeding" value="Breastfeeding"> Breastfeeding<br>
+                              <input type="checkbox" class="checkbox" id="formula" value="Formula"> Formula<br>
+                              <input type="checkbox" class="checkbox" id="solid_foods" value="Solid_foods"> Solid Foods<br></p>
+                            <p> 3. Nutrition topics I am particularly interested in:<br>
+                              <input type="checkbox" class="checkbox" id="meal_planning" value="Meal_planning"> Meal-planning and healthy recipes<br>
+                              <input type="checkbox" class="checkbox" id="risks" value="Risks"> nutritional risks during pregnancy/post-partum<br>
+                              <input type="checkbox" class="checkbox" id="weight" value="Weight"> Weight gain/loss<br>
+                              <input type="checkbox" class="checkbox" id="science" value="Science"> Science behind important nutrients<br></p>
+                        		<p>4. Additional health-related topics:<br>
+                              <input type="checkbox" class="checkbox" id="diabetes" value="Gestational_Diabetes"> Gestational Diabetes<br>
+                              <input type="checkbox" class="checkbox" id="hypertension" value="Hypertension"> Hypertension<br>
+                              <input type="checkbox" class="checkbox" id="obesity" value="Obesity"> Obesity<br>
+
+
+                        		</form>
+                        <button type="button" id="recommend" class="btn btn-default btn-lg">Update Results</a> </td>
+                    </tr>
+                    </table>
+
                 </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Fact Section -->
+    <section id="fact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Nutrition Fact/Fiction Finder</h2>
+                <form action="/">
+                  <textarea name="article" rows="10" cols="30">Copy and Paste your text here</textarea>
+                  <br>
+                  <input type="submit" id="clean" >
+                </form>
+                </ul>
             </div>
         </div>
     </section>
@@ -117,32 +169,31 @@
     <section id="contact" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h2>Contact Start Bootstrap</h2>
+                <h2>Contact Mari</h2>
                 <p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates and themes, or to just say hello!</p>
                 <p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
                 </p>
                 <ul class="list-inline banner-social-buttons">
                     <li>
-                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                        <a href="https://twitter.com/maripqz" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
                     </li>
                     <li>
-                        <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                        <a href="https://github.com/maripqz/PREGGERs" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
                     </li>
                     <li>
-                        <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+                        <a href="https://www.linkedin.com/in/maripqz/" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">LinkedIn</span></a>
                     </li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Map Section -->
-    <div id="map"></div>
+
 
     <!-- Footer -->
     <footer>
         <div class="container text-center">
-            <p>Copyright &copy; Your Website 2016</p>
+            <p>Copyright &copy; Maripqz 2017</p>
         </div>
     </footer>
 
@@ -160,6 +211,71 @@
 
     <!-- Theme JavaScript -->
     <script src="../static/js/grayscale.min.js"></script>
+
+    <script>
+    let get_input_dimensions = function() {
+       let stage = $("select#stage").val()
+       let breastfeeding = $("input#breastfeeding").is(":checked")
+       let formula = $("input#formula").is(":checked")
+       let solid = $("input#solid_foods").is(":checked")
+       let meal_planning = $("input#meal_planning").is(":checked")
+       let risks = $("input#risks").is(":checked")
+       let weight = $("input#weight").is(":checked")
+       let science = $("input#science").is(":checked")
+       let diabetes = $("input#diabetes").is(":checked")
+       let hypertension = $("input#hypertension").is(":checked")
+       let obesity = $("input#obesity").is(":checked")
+       // let reviews = $("input#reviews").val()
+       // let rating = $("input#rating").val()
+       // let bath = $("select#bath").val()
+       // let view = $("select#view").val()
+       // let instabook = $("select#instabook").val()
+       // let prop_type = $("select#prop_type").val()
+
+       return {'stage': stage,
+               'breastfeeding': breastfeeding,
+               'formula': formula,
+               'solid': solid,
+               'meal_planning': meal_planning,
+               'risks': risks,
+               'weight': weight,
+               'science': science,
+               'diabetes': diabetes,
+               'hypertension': hypertension,
+               'obesity': obesity,
+              }
+    };
+    $(document).ready(function() {
+
+        $("button#predict").click(function() {
+
+            make_prediction(get_input_latlng());
+
+        });
+
+        $("select.dropdown").change(function() {
+
+            make_prediction(get_input_latlng());
+
+        });
+
+        $("input.checkbox").click(function() {
+
+            make_prediction(get_input_latlng());
+
+        });
+
+        // $("input#reviews").click(function() {
+        //     make_prediction(get_input_latlng());
+        //     document.getElementById("reviews_val").innerHTML = document.getElementById("reviews").value;
+        // });
+        //
+        // $("input#rating").click(function() {
+        //     make_prediction(get_input_latlng());
+        //     document.getElementById("rating_val").innerHTML = document.getElementById("rating").value;
+        // });
+    });
+ </script>
 
 </body>
 

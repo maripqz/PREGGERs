@@ -21,9 +21,9 @@ Baby Center, Kellymom, What to Expect, The Bump, Parenting.com and Babble.
 Nutrition-specific keywords: nutrition, food, eat, meal, formula, nutrients, vitamins, supplements, diet, health, wellness,
 
 ### Nutrition websites:
-Authority Nutrition, Eat Right, Weight and Wellness, Food Insight, Food and Nutrition,  
+Authority Nutrition, Eat Right, Weight and Wellness, Food Insight, Food and Nutrition, Mayo Clinic
 Pregnancy-specific keywords: pregnant, baby, breast-feeding, birth, ovulation, postpartum, placenta, trimester,
-http://www.mayoclinic.org/search/search-results?q=pregnant%20nutrition
+
 
 ### Psuedoscience websites:
 Dr Perl Mutter, FoodBabe, beachbody, Bodybuilding, Weston A Price, Mercola

@@ -18,7 +18,7 @@ snowball = SnowballStemmer('english')
 ## Clean in csv files of all data
 def clean_csv(filename):
     new_df = pd.read_csv(filename)
-    clean_df = new_df.drop_duplicates()
+    clean_df = new_df.drop_duplicates(subset=['2'])
     clean_df = clean_df.dropna(subset=['2'])
     clean_df = clean_df.rename(index=str, columns={"0": "title", "1": "link", '2': 'content'})
     clean_df = clean_df.drop('Unnamed: 0', axis=1)
@@ -133,7 +133,7 @@ PoS_df = PoS_df.reset_index()
 
 all_content = all_content.reset_index()
 pos_content = all_content.join(PoS_df, lsuffix='_all_content', rsuffix='_PoS_df')
-pos_content = pos_content.drop(['index_all_content', 'level_0'], axis=1)
+pos_content = pos_content.drop(['index_all_content', 'level_0', 'index_PoS_df'], axis=1)
 pos_content = pos_content.fillna(0)
 labels = pos_content.pop('label')
 
