@@ -27,12 +27,47 @@ def load_model(filename):
 def index():
         return render_template('index.html')
 
-@app.route('/', methods=['POST'])
+@app.route('/recommend', methods=['POST', 'GET'])
 def recommend():
     user_data = request.json
-    a, b, c = user_data['a'], user_data['b'], user_data['c']
-    root_1, root_2 = _solve_quadratic(a, b, c)
-    return jsonify({'root_1': root_1, 'root_2': root_2})
+    #Get user provided inputs from form
+    stage = user_data['stage']
+    breastfeeding = user_data['breastfeeding']
+    formula = user_data['formula']
+    solid= user_data['solid']
+    meal_planning = user_data['meal_planning']
+    risks = user_data['risks']
+    weight = user_data['weight']
+    science = user_data['science']
+    diabetes = user_data['diabetes']
+    hypertension = user_data['hypertension']
+    obesity = user_data['obesity']
+
+    # Setting values to centroids
+    if breastfeeding:
+        breastfeeding = ()
+    if formula:
+        formula = ()
+    if solid:
+        solid = ()
+    if meal_planning:
+        meal_planning = ()
+    if risks:
+        risks = ()
+    if weight:
+        weight = ()
+    if science:
+        science = ()
+    #still need to set diabetes, hypertension, obesity, trimester stage
+
+    #calculate the position of the information that they want
+    all_inputs = [breastfeeding, formula, solid, meal_planning, risks, weight, science]
+    numerical_inputs = [item for item in position if item[0].isdigit()]
+    output = sum(numerical_inputs)/len(numerical_inputs)
+
+    #find the articles closest to this point
+    
+
 
 @app.route('/', methods=['POST'])
 def clean():
