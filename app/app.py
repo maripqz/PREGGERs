@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request, redirect
 import cPickle as pickle
+from scipy.spatial import KDTree
 app = Flask(__name__)
 
 def load_model(filename):
@@ -63,10 +64,14 @@ def recommend():
     #calculate the position of the information that they want
     all_inputs = [breastfeeding, formula, solid, meal_planning, risks, weight, science]
     numerical_inputs = [item for item in position if item[0].isdigit()]
-    output = sum(numerical_inputs)/len(numerical_inputs)
+    output = sum(numerical_inputs)/float(len(numerical_inputs))
 
-    #find the articles closest to this point
-    
+    #build a coordinate tree, and return indexes of the 10 nearest items
+    coordinate_ktree = KDTree(coordinates)
+    _, knn_indexes = coordinate_ktree.query(output, 10)
+
+    relevant_articles = uniques.iloc[knn_indexes]
+    return relevant_articles
 
 
 @app.route('/', methods=['POST'])
@@ -76,4 +81,4 @@ def clean():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
