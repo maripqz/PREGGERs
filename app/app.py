@@ -2,24 +2,12 @@ from flask import Flask
 from flask import render_template
 from flask import request, redirect
 import cPickle as pickle
+import pandas as pd
 from scipy.spatial import KDTree
 app = Flask(__name__)
 
-def load_model(filename):
-    """
-    Loads and returns trained sklearn random forest model.
-    Parameters
-    ----------
-    filename: str
-        The filename/path of the pickled model
-    Returns
-    -------
-    model:
-        Trained sklearn Naive Bayes model
-    """
-    with open(filename) as f:
-        model = pickle.load(f)
-    return model
+with open('static/GBC_model.pkl') as f:
+    model = pickle.load(f)
 
 
 
@@ -76,7 +64,12 @@ def recommend():
 
 @app.route('/', methods=['POST'])
 def clean():
-    text = request.form['text']
+    user_data = request.json
+    input_title = str(user_data['title'])
+    input_text = str(user_data['article'])
+    input_article = pd.DataFrame(columns=['title', 'article'])
+    input_article = input_article.append({'title': input_title, 'article': input_article}, ignore_index=True)
+
     return
 
 
