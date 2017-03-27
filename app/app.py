@@ -4,6 +4,7 @@ from flask import request, redirect
 import cPickle as pickle
 import pandas as pd
 from scipy.spatial import KDTree
+from static import helper_functions
 app = Flask(__name__)
 
 with open('static/GBC_model.pkl') as f:
@@ -62,15 +63,19 @@ def recommend():
     return relevant_articles
 
 
-@app.route('/', methods=['POST'])
+@app.route('/fact', methods=['POST', 'GET'])
 def clean():
     user_data = request.json
     input_title = str(user_data['title'])
     input_text = str(user_data['article'])
-    input_article = pd.DataFrame(columns=['title', 'article'])
+    input_article = pd.DataFrame(columns=['title', 'article', 'PRP$', 'VBG', 'VBD', 'VBN', 'VBP', 'WDT', 'JJ', 'WP', 'VBZ', 'DT',
+            '#', 'RP', '$', 'NN', ')', '(', ',', '.', 'TO', 'PRP', 'RB', ':',
+            'NNS', 'NNP', 'VB', 'WRB', 'CC', 'PDT', 'RBS', 'RBR', 'CD', 'EX',
+            'IN', 'WP$', 'MD', 'NNPS', 'JJS', 'JJR', 'UH', 'FW', 'LS', 'POS', 'SYM', '``', "''"])
     input_article = input_article.append({'title': input_title, 'article': input_article}, ignore_index=True)
-
-    return
+    input_article = helper_functions.add_columns()
+    probabilities = model.predict_proba(input_article.iloc[0,:])
+    return "this article is {} likely to be a legitimate nutrition article.".format(probabilities[0][1])
 
 
 if __name__ == "__main__":

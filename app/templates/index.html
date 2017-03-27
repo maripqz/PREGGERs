@@ -111,24 +111,25 @@
                     <h2>Find Nutrition Advice</h2>
                     <table border="0" width="100%" ID="Table2" style="margin: 0px;">
                     <tr>
-                      <td><img src="../static/img/kmeans.png" alt="temporary kmeans image"</td>
                       <td>
                         <h2>Feature Questions</h2>
-                            <form action="/action_page.php">
+                            <form action="/" background-color="black">
                             <p>1. What stage of pregnancy are you in?<br>
-                              <select id="stage" class="dropdown">
-                                <option value="1">1st Trimester</option>
-                                <option value="2">2nd Trimester</option>
-                                <option value="3">3rd Trimester</option>
-                                <option value="1st_week_postpartum">1st week postpartum</option>
-                                <option value="3_mo_postpartum">1-3 months postpartum</option>
-                                <option value="9_mo_postpartum">3-9 months postpartum</option>
+                              <select id="stage" class="dropdown" color="black">
+                                <option value="1" color="black">1st Trimester</option>
+                                <option value="2" color="black">2nd Trimester</option>
+                                <option value="3" color="black">3rd Trimester</option>
+                                <option value="1st_week_postpartum" color="black">1st week postpartum</option>
+                                <option value="3_mo_postpartum" color="black">1-3 months postpartum</option>
+                                <option value="9_mo_postpartum" color="black">3-9 months postpartum</option>
                               </select>
                         		<p>2. I'm looking for information on the following feeding options for my child:<br>
                               <input type="checkbox" class="checkbox" id="breastfeeding" value="Breastfeeding"> Breastfeeding<br>
                               <input type="checkbox" class="checkbox" id="formula" value="Formula"> Formula<br>
                               <input type="checkbox" class="checkbox" id="solid_foods" value="Solid_foods"> Solid Foods<br></p>
-                            <p> 3. Nutrition topics I am particularly interested in:<br>
+                            </td>
+                            <td>
+                              <p> 3. Nutrition topics I am particularly interested in:<br>
                               <input type="checkbox" class="checkbox" id="meal_planning" value="Meal_planning"> Meal-planning and healthy recipes<br>
                               <input type="checkbox" class="checkbox" id="risks" value="Risks"> nutritional risks during pregnancy/post-partum<br>
                               <input type="checkbox" class="checkbox" id="weight" value="Weight"> Weight gain/loss<br>
@@ -138,10 +139,12 @@
                               <input type="checkbox" class="checkbox" id="hypertension" value="Hypertension"> Hypertension<br>
                               <input type="checkbox" class="checkbox" id="obesity" value="Obesity"> Obesity<br>
 
+                            </tr>
 
-                        		</form>
-                        <button type="button" id="recommend" class="btn btn-default btn-lg">Update Results</a> </td>
-                    </tr>
+                            <tr>
+                            <button type="button" id="recommend" class="btn btn-default btn-lg">Show me Articles</a> </td>
+                          </form>
+                        </tr>
                     </table>
 
                 </div>
