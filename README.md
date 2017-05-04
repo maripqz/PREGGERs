@@ -14,29 +14,30 @@ There are be three inputs to this project:
 2. A collection of pregnancy-related documents and resources from trusted health and nutrition websites.
 3. Psuedoscience articles scraped from disreputable health and nutrition websites.
 
-## Data Scraping
-A lot of the work on this project was related to web scraping online resources and cleaning them up enough to belong in the repository. I saved the title, link and content of each article. I did not save pictures, videos or infographics.
+A lot of the work on this project was related to web scraping online resources and cleaning them up enough to belong in the repository. I saved the title, link and content of each article. I did not save pictures, videos or infographics. In total there were 2757 articles.
 
-### Pregnancy websites:
+#### Pregnancy websites:
 Baby Center, Kellymom, What to Expect, The Bump, Parenting.com and Babble.
 Nutrition-specific keywords: nutrition, food, eat, meal, formula, nutrients, vitamins, supplements, diet, health, wellness,
 
-### Nutrition websites:
+#### Nutrition websites:
 Authority Nutrition, Eat Right, Weight and Wellness, Food Insight, Food and Nutrition, Mayo Clinic
 Pregnancy-specific keywords: pregnant, baby, breast-feeding, birth, ovulation, postpartum, placenta, trimester,
 
-### Psuedoscience websites:
+#### Psuedoscience websites:
 Dr Perl Mutter, FoodBabe, beachbody, Bodybuilding, Weston A Price, Mercola
 
 ## Data Preparation
-Once I had my corpus of scientific and pseudoscientific articles,  I combined everything into one overarching corpus and then stemmed the words using snowball stemmer to prepare it for TF-IDF vectorization.
+Once I had my corpus of scientific and pseudoscientific articles,  I combined everything into one overarching corpus and then stemmed the words from each article using snowball stemmer.  
 I also created 53 text features. NLTK's Part of Speech tagging made up the vast majority of these, but were complemented with additional features I thought might have some correlation with science or psuedoscience (for instance, capital letters and exclamation points in the title).
 
 ## Modeling
-### Resource Repository Clustering
-Using only the scientific documents, I vectorized the documents using TF-IDF and then put through a KMeans clustering algorithm to group documents into specific categories. These are then mapped (by hand) back to different quiz responses.
+#### Resource Repository Clustering
+Using only the trusted scientific documents, I vectorized the articles using TF-IDF and then clustered the articles into categories using a KMeans clustering algorithm. Below is an summary of the top 10 features from documents clustered together into 20 different clusters.
 
-### Pseudoscience Filtering
+![image clusters](/img/clusters.png)
+
+#### Pseudoscience Filtering
 Using 80% of my psuedoscience and evidence-based science documents as training data, I ran a Naive Bayes classifier to determine the likelihood that new articles are likley to be evidence-based or full of false claims. I combined this with a Gradient Boosted Classifier built on the 53 text features.
 
 ## Evaluation
