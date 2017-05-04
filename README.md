@@ -5,17 +5,17 @@ Pregnancy Resources Encouraging Good Growth & Eating Right. A Capstone project f
 
 There are a ton of resources available for new mothers. Overwhelmed by this abundance, new mothers frequently turn to friends and family for advice rather than sifting through the deluge to find evidence-based nutrition evidence.
 
-This project combed over a dozen pregnancy and nutrition sites to aggregate resources in one place.  asks a few short questions of new mothers and sorts through those resources for them, providing a tailored list of information and experts that address religious and cultural preferences and provides a spectrum of resources from infographics to scientific journal articles that supports mothers regardless of reading level.
+This project scraped over a dozen pregnancy and nutrition websites to aggregate resources in one place.  Mothers then answer a few short questions and the resource recommender uses Kmeans clustering to sort through the resources for them, providing a tailored list of information that provides a spectrum of resources that supports mothers nutritional information needs. It also provides a psuedosience detector that allows users to copy and paste nutrition-related information into a form and provides the probability that the information is science-based or psuedoscience.
 
 ## Data Understanding
 
 There are be three inputs to this project:
-1. A collection of documents and resources from popular parenting resource websites.
-3. A short quiz asking users to answer some basic questions on their experience.
+1. A collection of nutrition-related documents and resources from trusted parenting resource websites.
+2. A collection of pregnancy-related documents and resources from trusted health and nutrition websites.
+3. Psuedoscience articles scraped from disreputable health and nutrition websites.
 
-## Data Preparation
-A lot of the work on this project was related to web scraping online resources and cleaning them up enough to belong in the repository. There are two different types of resources I will be collecting: pregnancy and maternal health websites (limited to information specifically focused on nutrition), and nutrition websites (limited to information about pregnancy and maternal health).
-Once I had my articles, I stemmed the content using snowball stemmer to prepare it for TF-IDF vectorization, and created 53 features using NLTK's Part of Speech tagging and additional features I thought might have some correlation with science or psuedoscience (for instance, capital letters and exclamation points in the title).
+## Data Scraping
+A lot of the work on this project was related to web scraping online resources and cleaning them up enough to belong in the repository. I saved the title, link and content of each article. I did not save pictures, videos or infographics.
 
 ### Pregnancy websites:
 Baby Center, Kellymom, What to Expect, The Bump, Parenting.com and Babble.
@@ -25,17 +25,19 @@ Nutrition-specific keywords: nutrition, food, eat, meal, formula, nutrients, vit
 Authority Nutrition, Eat Right, Weight and Wellness, Food Insight, Food and Nutrition, Mayo Clinic
 Pregnancy-specific keywords: pregnant, baby, breast-feeding, birth, ovulation, postpartum, placenta, trimester,
 
-
 ### Psuedoscience websites:
 Dr Perl Mutter, FoodBabe, beachbody, Bodybuilding, Weston A Price, Mercola
 
+## Data Preparation
+Once I had my corpus of scientific and pseudoscientific articles,  I combined everything into one overarching corpus and then stemmed the words using snowball stemmer to prepare it for TF-IDF vectorization.
+I also created 53 text features. NLTK's Part of Speech tagging made up the vast majority of these, but were complemented with additional features I thought might have some correlation with science or psuedoscience (for instance, capital letters and exclamation points in the title).
 
 ## Modeling
-### Resource Repository
-The resources were vectorized using TF-IDF and the resulting then put through a KMeans clustering algorithm to group documents into specific categories. These are then mapped back to .
+### Resource Repository Clustering
+Using only the scientific documents, I vectorized the documents using TF-IDF and then put through a KMeans clustering algorithm to group documents into specific categories. These are then mapped (by hand) back to different quiz responses.
 
 ### Pseudoscience Filtering
-Using my psuedoscience and evidence-based science documents as training data, I ran a Naive Bayes classifier to determine the likelihood that new articles are likley to be evidence-based or full of false claims.
+Using 80% of my psuedoscience and evidence-based science documents as training data, I ran a Naive Bayes classifier to determine the likelihood that new articles are likley to be evidence-based or full of false claims. I combined this with a Gradient Boosted Classifier built on the 53 text features. This ensemble model was very accurate in being able to discern fact from fiction in the remaining 20% of the testing data.
 
 ## Evaluation
 We will ask several mothers that we know to take the quiz and rate the quality of resources the recommender provides.
