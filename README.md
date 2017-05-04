@@ -37,9 +37,13 @@ I also created 53 text features. NLTK's Part of Speech tagging made up the vast 
 Using only the scientific documents, I vectorized the documents using TF-IDF and then put through a KMeans clustering algorithm to group documents into specific categories. These are then mapped (by hand) back to different quiz responses.
 
 ### Pseudoscience Filtering
-Using 80% of my psuedoscience and evidence-based science documents as training data, I ran a Naive Bayes classifier to determine the likelihood that new articles are likley to be evidence-based or full of false claims. I combined this with a Gradient Boosted Classifier built on the 53 text features. This ensemble model was very accurate in being able to discern fact from fiction in the remaining 20% of the testing data.
+Using 80% of my psuedoscience and evidence-based science documents as training data, I ran a Naive Bayes classifier to determine the likelihood that new articles are likley to be evidence-based or full of false claims. I combined this with a Gradient Boosted Classifier built on the 53 text features.
 
 ## Evaluation
+This ensemble model was very accurate in discerning science from pseudoscience in the remaining 20% of the testing data. Below is the ROC curve demonstrating that at a probability threshold of about .9 the true positive rate is around .9 and the false positive rate is low, only about .04.
+
+![ROC curve image](/img/ROC-curve.png)
+
 We will ask several mothers that we know to take the quiz and rate the quality of resources the recommender provides.
 
 
