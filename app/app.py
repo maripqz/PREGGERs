@@ -32,7 +32,6 @@ def recommend():
     diabetes = user_data['diabetes']
     hypertension = user_data['hypertension']
     obesity = user_data['obesity']
-
     # Setting values to centroids
     if breastfeeding:
         breastfeeding = ()
@@ -52,7 +51,7 @@ def recommend():
 
     #calculate the position of the information that they want
     all_inputs = [breastfeeding, formula, solid, meal_planning, risks, weight, science]
-    numerical_inputs = [item for item in position if item[0].isdigit()]
+    numerical_inputs = [item for item in all_inputs if item[0].isdigit()]
     output = sum(numerical_inputs)/float(len(numerical_inputs))
 
     #build a coordinate tree, and return indexes of the 10 nearest items

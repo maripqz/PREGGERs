@@ -34,21 +34,34 @@ $(document).ready(function() {
 
     $("button#predict").click(function() {
 
-        make_prediction(get_input_latlng());
+        // make_prediction(get_input_dimensions());
 
     });
 
     $("select.dropdown").change(function() {
 
-        make_prediction(get_input_latlng());
+        make_prediction(get_input_dimensions());
 
     });
 
     $("input.checkbox").click(function() {
 
-        make_prediction(get_input_latlng());
+        make_prediction(get_input_dimensions());
 
     });
+
+
+  let make_prediction = function(latlng) {
+          $.ajax({
+              url: '/recommend',
+              contentType: "application/json; charset=utf-8",
+              type: 'POST',
+              data: JSON.stringify(latlng),
+              success: function (data) {
+                  
+              }
+          });
+    };
 
     // $("input#reviews").click(function() {
     //     make_prediction(get_input_latlng());
